@@ -1,0 +1,66 @@
+1. 파이게임 모듈을 불러온다.
+import pygame
+파이 게임 모듈 쓰는 법 : https://jsh93.tistory.com/27
+
+2. 초기화 시킨다.
+pygame.init()
+width, height = 640, 480
+screen = pygame.display.set_mode((width,height))
+-> 파이 게임 안에 있는 디스플레이 안에 셋모드라는 메소드를 사용해서 게임 창을 만듬
+
+3. 이미지 가져오기
+player = pygame.image.load("resources/images/dude.png")
+ -> 이미지가 있는 위치 경로를 알려주고 그 객체를 가지고 오겠다
+그리고 나서, 그 객체에 player라는 이름을 붙이겠다 
+파이 게임이라는 모듈 안에 있는 이미지라는 메소드 load라는 메소드를 써서
+
+
+
+
+4. 계속 화면에 보이도록 하기
+while True:
+
+5.화면(게임 화면 창)을 깨끗하게 만들어 줌.
+	screen.fill((0,0,0)) #(R,G,B) // 스크린(스크린은 내가 만든 객체)을 채워주는 메소드
+					// (0,0,0) 레드,그린,블루에 다 0으로 채우겠다
+
+6. 모든 요소들을 다시 그린다.
+screen.blit(player, (100,100)) ->player라는 객체(이미지)를 가로 100, 세로 100 위치에 놓겠다는 의미
+blit()는 이미 만들어진 게임 창에 만든 객체를 넣고자 할때 쓰임 -> 실행하면, 그림이 나오진 않음
+우리가 만든 screen이라는 surface클래스 어쩌고에 있는 메소드 중 하나
+
+6.1 - 마우스를 이용해서 움직이거나 회전
+position = pygame.mouse.get_pos() // pygame에 있는 마우스라는 객체를 가지고 와서 그 안에 있는 get_pos()를 사용(현재 마우스의 위치 값)
+angle = math.atan2(position[1] - (playpos[1]+32), position[0]-(playpos[0] + 26)) // 
+playerrot = pygame.transform.rotate(player, 360-angle*57.29) // 회전시켜주는 메소드 player라는 객체를 사용을 해서 일정한 각도만큼 회전을 하게끔 만듬
+playerpos1 = (playpos[0] - playerrot.get_rect().width//2, playpos[1] - playerrot.get_rect().height//2 )
+screen.bilt(playerrot,playerpos1)
+
+
+7. 화면을 다시 그린다.
+pygame.display.flip() ->flip()메소드를 거치면 그림(player)이 나옴
+
+
+4 ~ 7까지 while문으로 무한 반복으로 화면에 그림이 나오는 것임
+
+8. 게임을 종료합니다.
+for event in pygame.event.get():
+파이 게임 안에 있는 이벤트를 얻어와서 이벤트라는 변수 안에 집어 넣은 다음에
+
+if event.type == pygame.QUIT:
+창이 띄어지고 엑스표시를 눌러졌을 때,
+
+pygame.quit()
+exit(0) -> while문이 계속 돌고 있기 때문에
+게임을 종료한다.
+
+랜덤 함수 설명 : https://wikidocs.net/79
+enumerate() -> 리스트[]의 순서와 리스트[]의 값을 전달하는 기능(순서가 있는 자료들을 입력으로 받아 인덱스 값을 포함하는 객체를 리턴한다.
+random.randrange() ->몇에서 몇까지의 정수 중 하나를 무작위로 뽑아주는 함수
+random.shuffle() -> 순서형 자료들을 뒤죽박죽으로 섞어 놓는 함수
+append() -> 리스트의 맨 마지막에 새로운 요소를 추가하는 기능
+random,ranint(x,y) -> x에서 y까지 무작위로
+
+게임 만들기1 : https://opentutorials.org/course/3045
+게임 만들기2 : http://blog.naver.com/PostView.nhn?blogId=samsjang&logNo=220710150583&parentCategoryNo=&categoryNo=80&viewDate=&isShowPopularPosts=false&from=postList
+	      https://futurestorys.tistory.com/103
